@@ -13,23 +13,30 @@ Could be very helpful for making keylisteners easily.
 
 ==== Meta-Markup Semantics ====
 
-The flow of data is shown below. a => b means "a is generated into b", and a -> b means "b takes a as a parameter"
+A meta-script is passed into the MMG, and produces a class which can parse certain scripts.
 
-mml script ==> generated parsing class ==> generated class ==> either a compiled generator class, or a generated object
-                                         ->
-                                        /
-                                       /
-                        optional params
-
-
-
-The generated parsing class 
-
-
-
+Passing params into the class which can parse certain scripts, either a new class is generated, or a class which can generate serialized objects is generated, or an object is generated.
 
 === Project Structure ====
 
-We split the entire project into a few sub-modules that perform their own task.
+We split the entire project into a few sub-projects to give better modularity while working on the project. The final version will compile all of the sources into one large, cohesive, project. 
+
+Currently, the sub-projects include
+
+GenerateJava : deals with the semantics of generating java code
+Meta-Markup Generator : the part which contains the main class (the 'head' part of the MMG)
+MMLCompiler : deals with compilation of mml scripts, and putting it into a java-representation
+Util : various string utilities. Some of these are pretty interesting, give them a look!
+Test : project for various tests
+Lib : utilities not written by me.
 
 
+=== Note ===
+
+This project is currently not finished. However, this idea, designes, and all of the code has been written in the past 24 hours... please take that into account.
+
+(unfortunately, midterms took up all of my time this week)
+
+=== TODO ===
+
+Finish mmg compilation, placement of mmg objects into java format.
