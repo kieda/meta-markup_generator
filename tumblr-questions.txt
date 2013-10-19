@@ -1,0 +1,26 @@
+
+What does the meta markup generator do?
+----
+
+The meta-markup generator is a system which parses a "meta-markup language" and produces/dynamically compiles a new program able to parse another markup language according to the specification given in the meta-markup language. See "README.txt" for more information.
+
+
+What are it's constraints?
+----
+Currently, the largest constraint is that it is not yet finished, though it is near completion.
+
+A secondary constraint is that it is very inefficient to dynammically compile and produce classes on the fly, compared to using an interpreter.
+
+It is not supposed to be used on a client application, however. It's main purpose is a programming tool to increase the productivity of the programmer, and increase the efficiency of the program. Serialization options for the mmg will allow a user to write a human-readible script, like JSON, and have it compiled to a java object. This allows java to readily read the object's data without parsing the script.
+
+What did I have to overcome?
+----
+The largest constraint was time constraints. All of the code has been written currently present has been written in roughly 24 hours. 
+
+I also had to learn more advanced features and uses of regular expressions, though the information is more interesting than challenging.
+
+Why this code in particular?
+----
+1. Because this idea is awesome
+2. So I can use it for my own programming projects (or anyone else who would want to use it). It would be nice to write a script to define EventListeners quickly/with readibility
+3. Because this project is really awesome
