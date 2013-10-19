@@ -1,1 +1,36 @@
 //example mml file
+
+// (~ ~) represents java code
+// (` `) represents regex code
+// #n in java code, in regex code replaces #n with the n^th capture group. 
+//     This works in all situations. Insert a '#' in java code by \#
+// comments are not allowed in regex code/mode.
+
+// see: MMLCompiler/src/parser.mml.MMLSpec for more information about the different functions available, and syntax.
+// variables and classes with $ are used by the system. For example, String $CLASS is the first word token of the
+// mml script's own name. $SyntaxError is a throwable class.
+
+version 0;
+type customClass;
+import (~import java.util.LinkedList;~);
+
+local (~Class[] types; int counter=0; LinkedList<Class> ty = new LinkedList<>();~);
+
+// represents the 0^th regex block that should process the incoming script.
+// 
+
+syntax 0 (` 
+     /([a-zA-Z_][a-zA-Z0-9_]*)/ (~
+         //on a match.
+         
+         ty.add(Class.forName("#1"));//places the first capturing block inside the string.
+         
+         counter++;
+     ~),
+     
+     /\s/ (~ /*fallthrough to second case, whitespace. Do nothing.*/ ~)
+     
+     /./ (~ /*anything else is a syntax error*/ throw new $SyntaxError("unknown char : #0");~)
+`);
+
+//todo- finish example....  
