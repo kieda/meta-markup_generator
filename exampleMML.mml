@@ -39,7 +39,7 @@ after (~
         sb.append("int i").append(s++).append('=').append(c).append(';');
         //int i_n = k_n;
     }
-~)``generate class body
+~); ``generate class body
 
 classOf {class:className, body:sb}; ``generate class.
 
