@@ -13,9 +13,10 @@
 `` see: MMLCompiler/src/parser.mml.MMLSpec for more information about the different functions available, and syntax.
 `` variables and classes with $ are used by the system. 
 
-`` chars is the system variable for the input CharSequence for the script
-`` flatten is a system function which takes a tag, and returns a CharSequence of all of the elements in the tag
-`` ParsingException is a system exception class
+`` chars is the utilty/system variable for the input CharSequence for the script
+`` flatten is a utility/system function which takes a tag, and returns a CharSequence of all of the elements in the tag
+`` ParsingException is a utlity/system exception class
+`` map is a utility/system function which takes a list of CharSequences, and generates a new CharSequence list based on a function the user passes.
 
 `` double backtick represents a line comment. Double backticks in java code or in regex code are not treated as
 `` comments. 
