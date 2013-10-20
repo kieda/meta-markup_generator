@@ -5,7 +5,7 @@
 `` not keyvalue pairs, (and not an integer) is treated as java code.
 
 `` / / represents regex code
-`` {} represents key/value pairs
+`` {} represents key/value pairs from a 'key' determined by the mml spec to Java Code.
 `` #n in java code, while matching a regex, replaces #n with the n^th capture group. 
 ``     This works in all situations. Insert a '#' in java code by \#
 `` comments are not allowed in regex code/mode.
