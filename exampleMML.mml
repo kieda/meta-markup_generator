@@ -1,36 +1,44 @@
 //example mml file
 
-// (~ ~) represents java code
-// (` `) represents regex code
-// #n in java code, in regex code replaces #n with the n^th capture group. 
+// (~ ~) represents java code with more than one word. 
+// / / represents regex code
+// {} represents key/value pairs
+// #n in java code, while matching a regex, replaces #n with the n^th capture group. 
 //     This works in all situations. Insert a '#' in java code by \#
 // comments are not allowed in regex code/mode.
 
 // see: MMLCompiler/src/parser.mml.MMLSpec for more information about the different functions available, and syntax.
-// variables and classes with $ are used by the system. For example, String $CLASS is the first word token of the
-// mml script's own name. $SyntaxError is a throwable class.
+// variables and classes with $ are used by the system. 
+
+// chars is the system variable for the input CharSequence for the script
+// flatten is a system function which takes a tag, and returns a CharSequence of all of the elements in the tag
+// ParsingException is a system exception class
 
 version 0;
-type customClass;
-import (~import java.util.LinkedList;~);
+type GenerateClass;
 
-local (~Class[] types; int counter=0; LinkedList<Class> ty = new LinkedList<>();~);
+tag chars /\s*[0-9]+\s*,\s*/ item;
+parse chars /.*/ (~throw new ParsingException("unexpected token "+#0);~);
 
-// represents the 0^th regex block that should process the incoming script.
+tag item /[0-9]+/ elem;
+
+param (~String className~);
+
+local (~StringBuilder sb = new StringBuilder();~)
+
+after (~
+    int s = 0;
+    for(CharSequence c : elem){
+        sb.append("int i").append(s++).append('=').append(c).append(';');
+        //int i_n = k_n;
+    }
+~)
+
+classOf {class:className, body:sb}
+
+// this example takes a script that looks like
 // 
+// 1, 2, 3, 4, 5,
 
-syntax 0 (` 
-     /([a-zA-Z_][a-zA-Z0-9_]*)/ (~
-         //on a match.
-         
-         ty.add(Class.forName("#1"));//places the first capturing block inside the string.
-         
-         counter++;
-     ~),
-     
-     /\s/ (~ /*fallthrough to second case, whitespace. Do nothing.*/ ~)
-     
-     /./ (~ /*anything else is a syntax error*/ throw new $SyntaxError("unknown char : #0");~)
-`);
-
-//todo- finish example....  
+// and generates a class that looks like
+// public class <className>{int i0=1;int i1=2;int i2=3;int i3=4;int i4=5;}
