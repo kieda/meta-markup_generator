@@ -1,30 +1,37 @@
-//example mml file
+`` example mml file
 
-// (~ ~) represents java code with more than one word. 
-// / / represents regex code
-// {} represents key/value pairs
-// #n in java code, while matching a regex, replaces #n with the n^th capture group. 
-//     This works in all situations. Insert a '#' in java code by \#
-// comments are not allowed in regex code/mode.
+`` the first word is always a function
+`` (~ ~) represents java code with more than one word. For any word that is not a regex,
+`` not keyvalue pairs, (and not an integer) is treated as java code.
 
-// see: MMLCompiler/src/parser.mml.MMLSpec for more information about the different functions available, and syntax.
-// variables and classes with $ are used by the system. 
+`` / / represents regex code
+`` {} represents key/value pairs
+`` #n in java code, while matching a regex, replaces #n with the n^th capture group. 
+``     This works in all situations. Insert a '#' in java code by \#
+`` comments are not allowed in regex code/mode.
 
-// chars is the system variable for the input CharSequence for the script
-// flatten is a system function which takes a tag, and returns a CharSequence of all of the elements in the tag
-// ParsingException is a system exception class
+`` see: MMLCompiler/src/parser.mml.MMLSpec for more information about the different functions available, and syntax.
+`` variables and classes with $ are used by the system. 
 
-version 0;
-type GenerateClass;
+`` chars is the system variable for the input CharSequence for the script
+`` flatten is a system function which takes a tag, and returns a CharSequence of all of the elements in the tag
+`` ParsingException is a system exception class
 
-tag chars /\s*[0-9]+\s*,\s*/ item;
-parse chars /.*/ (~throw new ParsingException("unexpected token "+#0);~);
+`` double backtick represents a line comment. Double backticks in java code or in regex code are not treated as
+`` comments. 
 
-tag item /[0-9]+/ elem;
+version 0; ``optional - just tells the compiler which version script we have.
 
-param (~String className~);
+tag chars /(\s*[0-9]+\s*,\s*)*([0-9]+\s*)?/ check; ``we ensure the file is in the correct format
+parse chars /\S*/ (~throw new ParsingException("unexpected token "+#0);~);``if not we throw an error
 
-local (~StringBuilder sb = new StringBuilder();~)
+tag check /\s*[0-9]+\s*,\s*/ item; ``parse the individual components
+
+tag item /[0-9]+/ elem; ``continue to parse the individual components
+
+param (~String className~); ``the param that should be parsed with the script
+
+local (~StringBuilder sb = new StringBuilder();~); ``local var
 
 after (~
     int s = 0;
@@ -32,13 +39,13 @@ after (~
         sb.append("int i").append(s++).append('=').append(c).append(';');
         //int i_n = k_n;
     }
-~)
+~)``generate class body
 
-classOf {class:className, body:sb}
+classOf {class:className, body:sb}; ``generate class.
 
-// this example takes a script that looks like
-// 
-// 1, 2, 3, 4, 5,
+`` this example takes a script that looks like
+`` 
+`` 1, 2, 3, 4, 5,
 
-// and generates a class that looks like
-// public class <className>{int i0=1;int i1=2;int i2=3;int i3=4;int i4=5;}
+`` and generates a class that looks like
+`` public class <className>{int i0=1;int i1=2;int i2=3;int i3=4;int i4=5;}
