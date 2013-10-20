@@ -33,7 +33,7 @@ param (~String className~); ``the param that should be parsed with the script
 
 local (~StringBuilder sb = new StringBuilder();~); ``local var
 
-after (~
+local (~
     int s = 0;
     for(CharSequence c : elem){
         sb.append("int i").append(s++).append('=').append(c).append(';');
