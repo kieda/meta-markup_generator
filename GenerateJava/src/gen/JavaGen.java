@@ -3,6 +3,7 @@ package gen;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import strings.CustomChars;
 
 /**
  * @author zkieda
@@ -19,34 +20,37 @@ public class JavaGen {
 //        class_def[1].add("public class ");
 //    }
     
-    public void setPackage(String pack){
+    public void setPackage(CharSequence pack){
     }
-    public void setClassName(String classN){
+    public void setClassName(CharSequence classN){
     }
     public String getClassName(){
     }
     public String getFullName(){
     }
-    public void setExtends(String ext){
+    public void setExtends(CharSequence ext){
     }
-    public void setImplements(String impl){
+    public void setImplements(CharSequence impl){
     }
-    public void addConstructor(String params, String body){
+    public void addConstructor(CharSequence params, CharSequence body){
     }
-    public void addBodySyntax(String body){
+    public void addBodySyntax(CharSequence body){
     }
-    public void addMethod(String scopes_static, String ret, String params, String body){
+    public void addMethod(CharSequence scopes_static, CharSequence ret, CharSequence params, CharSequence body){
     }
-    public void addSubClass(String scopes_static, JavaGen other){
+    public void addSubClass(CharSequence scopes_static, JavaGen other){
     }
     
     
     public void writeTo(String filepath) throws IOException{
-        
     }
     public CharSequence toCharSequence(){
         return null;
     }
     
-    
+    private static void conf(LinkedList<CharSequence> ls, int i) {
+        ls.add(new CustomChars(i));
+//        "$patterns[0] = ;" +
+//"$sequences[0] = hello;";
+    }
 }

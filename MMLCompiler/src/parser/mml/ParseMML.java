@@ -1,6 +1,7 @@
 package parser.mml;
 
 import compl.MMLObject;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,7 +10,18 @@ import java.util.regex.Pattern;
  * @author zkieda
  */
 public class ParseMML extends MMLObject {
-    private static final Pattern MML = Pattern.compile("", Pattern.COMMENTS|Pattern.DOTALL);
+    private static LinkedList<Info> info = new LinkedList<>();
+    
+    private static final Pattern MML = Pattern.compile(
+              "[#$a-zA-Z_][#$a-zA-Z_0-9]*"//single word
+            + "(``[^\\n\\\\\\r]*)"//comment
+            + "\\(~.*?~\\)|\\(~.*"//java block
+            + "/.*?([^\\\\]/|$)"//regex
+            + ";"//semicolon
+            + ";"//keyvalue
+            + "\\s*"//whitespace
+            
+            , Pattern.MULTILINE|Pattern.DOTALL);
     public ParseMML(CharSequence cs){
 //            (~      ~)
 //            (`      `)  
@@ -18,5 +30,11 @@ public class ParseMML extends MMLObject {
         
         Matcher m = MML.matcher(cs);
         
+        
     }
+    
+}
+class Info{
+    byte type;
+    CharSequence text;
 }

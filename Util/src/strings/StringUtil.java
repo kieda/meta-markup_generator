@@ -58,7 +58,7 @@ public class StringUtil {
             }
         }
         
-        return new String(ret);
+        return new SharedChars(ret).getChars();
     }
     
     //writes a string list to the stream as if it were flattened.
@@ -80,6 +80,14 @@ public class StringUtil {
         return s;
     }
     
+    //throws nullpointer exception if seq is null
+    public static char[] toCharArray(CharSequence seq) {
+        char[] c = new char[seq.length()];
+        for(int i=0;i<c.length;i++){
+            c[i] = seq.charAt(i);
+        }
+        return c;
+    }
 //    public static void main(String[] args) throws IOException{
 //        
 ////        System.out.println(Arrays.toString(filterNull(new String[]{"asdf", null, "asdfa", "a123", null, null})));
@@ -88,7 +96,8 @@ public class StringUtil {
 ////        s.add("asdf");
 ////        s.add("1234");
 ////        s.add("qwer");
-////        write(s, new FileOutputStream("./src/test/asdf.tes"));
+//////        write(s, new FileOutputStream("./src/test/asdf.tes"));
 ////        System.out.println(flatten((LinkedList<CharSequence>)s));
 //    }
 }
+

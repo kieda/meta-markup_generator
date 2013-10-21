@@ -1,0 +1,90 @@
+<0>
+import static strings.StringUtil.flatten;
+<1>
+class <2> extends <3> implements <4> {
+    private static boolean $process(Matcher matcher, int prev, LinkedList<CharSequence> sequence, int length){
+        if(matcher.find()){
+            if(prev=matcher.start()){
+                sequence.add(matcher.group()); 
+                //REPLACE REGION IN THE MATCHER.
+                return true;
+            } else matcher.region(prev, length);
+        }
+        return false;
+    }
+    //requires : pattern.length==sequences.length. All elements from index 0
+    //till length-1 are non-null, and all elements after are null
+    //ensures: 
+    private static void $processTag(LinkedList<CharSequence> chars, Pattern[] pattern, LinkedList<CharSequence>[] sequences, Matcher matcher, int idx){
+        int prev, length; //previous value, the length of the string.
+
+        for(CharSequence sequence : chars){//go through all of the char sequences in the char sequence
+            length = sequence.length();//length of sequence
+            matcher.reset(sequence);//set the matcher to the sequence
+            prev = 0;//the previous position that we matched is at 0
+
+            $cont:while(!matcher.hitEnd()){//while we have not matched the entire sequence
+                for(int i = 0; i < length;i++){
+                    matcher.usePattern(pattern[i]);
+                    if($process(matcher, prev, sequences[i], length)){
+                        prev=matcher.start(); continue $cont;
+                    }
+                }
+                //throw new ParsingException(pattern);
+            }
+        }
+        //clear the rest
+        for(int i = 0; i <= idx; i++){
+            pattern[i]=null; sequences[i]=null;
+        }
+    }
+
+    private static void $processSyntax(LinkedList<CharacterSequence> chars, Pattern[] pattern, Runnable[] executions, int idx){
+        int prev, length; //previous value, the length of the string.
+
+        for(CharSequence sequence : chars){//go through all of the char sequences in the char sequence
+            length = sequence.length();//length of sequence
+            matcher.reset(sequence);//set the matcher to the sequence
+            prev = 0;//the previous position that we matched is at 0
+
+            $cont:while(!matcher.hitEnd()){//while we have not matched the entire sequence
+                for(int i = 0; i < length;i++){
+                    matcher.usePattern(pattern[i]);
+                    if($process(matcher, prev, sequences[i], length)){
+                        prev=matcher.start(); continue $cont;
+                    }
+                }
+                //throw new ParsingException(pattern);
+            }
+        }
+        //clear the rest
+        for(int i = 0; i <= idx; i++){
+            pattern[i]=null; sequences[i]=null;
+        }
+    }
+    
+    public <2> (CharSequence $inputChars, <5>){
+        LinkedList<CharSequence> chars = new LinkedList<CharSequence>();
+        LinkedList<CharSequence> hello = new LinkedList<CharSequence>();
+        
+        Pattern[] $patterns = new Pattern[<<>>];
+        LinkedList<CharSequence>[] $sequences = new LinkedList<CharSequence>[<<>>];
+
+        Matcher $matcher = Pattern.compile("").matcher("");
+        $patterns[0] = ;
+        $sequences[0] = hello;
+        $processTag(chars, $patterns, $sequences, $matcher, 0);
+    }
+}
+
+
+/**
+ * note : flatten(tag) is a built in function which flattens the entire tag into
+ * one large CharSequence.
+ *
+ * you may iterate through all of the elements of a tag by 
+ * 
+ * for(CharSequence c : <tag name>) {
+ *     //process c here
+ * }
+ */

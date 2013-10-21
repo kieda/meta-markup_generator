@@ -1,0 +1,52 @@
+`` example mml file
+
+`` the first word is always a function
+`` (~ ~) represents java code with more than one word. For any word that is not a regex,
+`` not keyvalue pairs, (and not an integer) is treated as java code.
+
+`` / / represents regex code
+`` {} represents key/value pairs from a 'key' determined by the mml spec to Java Code.
+`` #n in java code, while matching a regex, replaces #n with the n^th capture group.
+`` This works in all situations. Insert a '#' in java code by \#
+`` comments are not allowed in regex code/mode.
+
+`` see: MMLCompiler/src/parser.mml.MMLSpec for more information about the different functions available, and syntax.
+`` variables and classes with $ are used by the system.
+
+`` chars is the utilty/system variable for the input CharSequence for the script
+`` flatten is a utility/system function which takes a tag, and returns a CharSequence of all of the elements in the tag
+`` ParsingException is a utlity/system exception class
+`` map is a utility/system function which takes a list of CharSequences, and generates a new CharSequence list based on a function the user passes.
+
+`` double backtick represents a line comment. Double backticks in java code or in regex code are not treated as
+`` comments.
+
+version 0; ``optional - just tells the compiler which version script we have.
+
+tag chars /(\s*[0-9]+\s*,\s*)*([0-9]+\s*)?/ check; ``we ensure the file is in the correct format
+parse chars /\S*/ (~throw new ParsingException("unexpected token "+#0);~);``if not we throw an error
+
+tag check /\s*[0-9]+\s*,\s*/ item; ``parse the individual components
+
+tag item /[0-9]+/ elem; ``continue to parse the individual components
+
+param (~String className~); ``the param that should be parsed with the script
+
+local (~StringBuilder sb = new StringBuilder();~); ``local var
+
+local (~
+    int s = 0;
+    for(CharSequence c : elem){
+        sb.append("int i").append(s++).append('=').append(c).append(';');
+        //int i_n = k_n;
+    }
+~); ``generate class body
+
+classOf {class:className, body:sb}; ``generate class.
+
+`` this example takes a script that looks like
+``
+`` 1, 2, 3, 4, 5,
+
+`` and generates a class that looks like
+`` public class <className>{int i0=1;int i1=2;int i2=3;int i3=4;int i4=5;}

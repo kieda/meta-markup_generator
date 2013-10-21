@@ -29,7 +29,7 @@ public class ModifyJava {
      * The syntax alternates from the original strings and the numbers, and will
      * always start and end with a string.
      */
-    public static LinkedList<CharSequence> modify(CharSequence java){
+    public static LinkedList<CharSequence> patternModify(CharSequence java){
         LinkedList<CharSequence> chas = new LinkedList<>();
         Matcher m = SPLITTER.matcher(java);
         int prev = 0;
@@ -41,6 +41,16 @@ public class ModifyJava {
         }
         
         chas.add(java.subSequence(prev, java.length()));
+        
+        return chas;
+    }
+    /**
+     * if we have a single word, then we return the single word. Otherwise,
+     * we modify the java block
+     * requires: java is either a single word, or is (~ ... ~)
+     * ensures: result will compile iff java is correctly made
+     */
+    public static CharSequence modify(CharSequence java){
         
         return chas;
     }
