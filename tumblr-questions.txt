@@ -1,4 +1,3 @@
-
 What does the meta markup generator do?
 ----
 
@@ -18,6 +17,8 @@ What did I have to overcome?
 The largest constraint was time constraints. All of the code has been written currently present has been written in roughly 24 hours. 
 
 I also had to learn more advanced features and uses of regular expressions, though the information is more interesting than challenging.
+
+I have not taken any courses in compilers or string algorithms. I've figured out all of the algorithms for parsing code, and generating code myself.
 
 Why this code in particular?
 ----
