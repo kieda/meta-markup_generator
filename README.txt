@@ -1,3 +1,6 @@
+==== Important Note ====
+If this project has changed since you've last seen it, this is because I've updated it. I find this project really interesting, and I am working on it whenever I have some free time (or even when I don't). 
+
 ==== About ====
 
 The Meta-Markup Generator (MMG) is a system which generates a java class for parsing other markup languages based on a standardized format, mml, or the meta markup language. The java class can then accept a markup language based on the markup language, and produce either a new class or an instance based on the script. For example, you can make a script which defines the way JSON is parsed, and the MMG will generate a new class that will be able to parse JSON scripts, and create an object from them. The object can then be serialized, so the same JSON script would not need to be parsed again. MMG can produce parsers which can produce new classes which can produce new classes, which effectively gives a very skewed version of the popular functional programming technique, currying, except the new function generated is a new compiled class.
@@ -19,23 +22,24 @@ Passing params into the class which can parse certain scripts, either a new clas
 
 === Project Structure ====
 
-We split the entire project into a few sub-projects to give better modularity while working on the project. The final version will compile all of the sources into one large, cohesive, project. 
+The project consists of a few basic packages,
 
-Currently, the sub-projects include
-
-GenerateJava : deals with the semantics of generating java code
-Meta-Markup Generator : the part which contains the main class (the 'head' part of the MMG)
-MMLCompiler : deals with compilation of mml scripts, and putting it into a java-representation
-Util : various string utilities. Some of these are pretty interesting, give them a look!
-Test : project for various tests
-Lib : utilities not written by me.
+mmg.drivers : entry-points to the mmg
+              interesting class : mmg.drivers.Main
+mmg.args : deals with the String[] input args to the mmg system 
+mmg.compiler : deals with parsing and compilation of mml scripts, and putting these scripts into an intermediate language
+               interesting class : mmg.compiler.compilation.CompileJava
+mmg.gen : deals with the semantics of generating java code
+mmg.util : various utilities, includiing some pretty interesting string utilities. Give them a look!
+mmg.test : various tests
+lib : utilities not written (or only partially written) by me.
 
 
 === Note ===
 
-This project is currently not finished. However, this idea, designes, and all of the code has been written in the past 24 hours... please take that into account.
+Most of this project has been designed and coded in 24 hours... please take that into account.
 
-(unfortunately, midterms took up all of my time this week)
+(unfortunately, midterms took up all of my time last week)
 
 === TODO ===
 
