@@ -4,8 +4,9 @@
  */
 package reg;
 
-import io.CharFile;
+import mmg.util.io.CharFile;
 import java.io.File;
+import java.math.MathContext;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,35 +43,128 @@ public class RegTest {
     
     public static void main(String[] args) {
         CharSequence cs = new CharFile(new File("./asdf.mml")).getChars();
-        
-        
 //        Matcher m = Pattern.compile("(``[^\\n\\\\\\r]*)").matcher(cs);
-        Pattern ENDS = Pattern.compile("(``)|(\\(~)|(~\\))|(\\{)|(\\})|(/)|(\")|(')|(/\\*)|(\\*/)|(//)");
-        Matcher m = ENDS.matcher(cs);
-        int g = m.groupCount();
+//        Pattern ENDS = Pattern.compile("(``)|(\\(~)|(~\\))|(\\{)|(\\})|(/)|(\")|(')|(/\\*)|(\\*/)|(//)");
+//        Pattern ENDS = Pattern.compile("|(\")|(')|(/\\*)|(\\*/)|(//)");
+//        Pattern S0 = Pattern.compile("(``)|(\\(~)|(~\\))|(\\{)|(\\})|(/)|(;)|([a-zA-Z_][a-zA-Z_0-9]*)");
         
-        int state=0;//base
+//        int state=0;//base
+//        
+//        Pattern S[] = new Pattern[]{
+//            Pattern.compile("([\\n\\\\\\r])"),//0 : new line
+//            Pattern.compile("(~\\))|(\")|(')"),//1 : end java
+//        };
+        new Parse(cs);
+    }
+        private static class Parse{
+            private LinkedList<CharSequence> parsed = new LinkedList<>();
+            public Parse(CharSequence in){
+                final int i =Pattern.MULTILINE|Pattern.DOTALL;
+                final Pattern newline = Pattern.compile("($)",i);
+                
+final MatchType CLOSE_JAVA = new MatchType(Pattern.compile("(~\\))|(\")|(')|(//)|(/\\*)",i), 
+new MatchType[]{
+    //case ~)
+    null,
+    //case "
+    new MatchType(Pattern.compile("(\")|([\\n][\\\r])|($)",i), new MatchType[]{null, FAIL, FAIL}),
+    //case '
+    new MatchType(Pattern.compile("(')|([\\n][\\\r])|($)",i), new MatchType[]{null, FAIL, FAIL}),
+    //case //
+    new MatchType(newline, new MatchType[]{ null}),
+    //case /*
+    new MatchType(Pattern.compile("(\\*/)|($)",i), new MatchType[]{null, FAIL}),
+}
+);
 
-        while(m.find()){
-//            for(int i = 1; i <= g; i++){
-            if(m.start(1)!=-1){//comment
-                if(j==0){
-                    //find till the end of the line/file
+MatchType KEYVAL=null;
+
+parse(Pattern.compile("").matcher(in), 
+new MatchType(
+    Pattern.compile("(``)|(\\(~)|(~\\))|(\\{)|(\\})|(/)|(;)|([a-zA-Z_][a-zA-Z_0-9]*)"),
+    new MatchType[]{
+        //case ``
+        new MatchType(newline, new MatchType[]{
+            null,//case new line
+        }),
+        
+        //case (~
+        CLOSE_JAVA,
+        
+        //case ~)
+        FAIL,
+        
+        //case {
+        (KEYVAL=new MatchType(Pattern.compile("([a-zA-Z_][a-zA-Z_0-9]*)|(\\})",i),
+            new MatchType[]{
+                
+            //case word
+            new MatchType(Pattern.compile("(:)"), 
+                new MatchType[]{
+                    //case :
+                    new MatchType(Pattern.compile("(\\(~)|([a-zA-Z_][a-zA-Z_0-9]*)"),
+                        new MatchType[]{
+                            //case (~
+                            CLOSE_JAVA,
+                            //case word
+                            KEYVAL
+                        }
+                )}),
+            
+            //case }
+            null}
+        )),
+        
+        //case }
+        FAIL,
+        
+        //case /
+        new MatchType(Pattern.compile("(.*?[^\\\\]/|($))",i), new MatchType[]{
+            //case /
+            null,
+            //case end of line
+            FAIL}),
+        
+        //case ;
+        null,
+        
+        //case word
+        null
+    }
+),
+null);
+            }
+//            private MatchType matches;
+            
+            private void parse(Matcher m, MatchType mt, LinkedList<CharSequence> parsed){
+                if(mt==FAIL){throw new Error("");}
+                if(mt==null){
+                    return;
                 }
-            } else if(m.start(2)!=-1){//java begin
-                j++;
-            } else if(m.start(3)!=-1){//java end
-                j--;
-            } else if(m.start(4)!=-1){//keyvalue begin
-            } else if(m.start(5)!=-1){//keyvalue end
-            } else if(m.start(6)!=-1){//string begin
-            } else if(m.start(7)!=-1){//quote begin
-            } else if(m.start(7)!=-1){//java comment block begin
-            } else if(m.start(7)!=-1){//java comment block end
+//                System.out.println(mt.pat);
+                m.usePattern(mt.pat);
+                System.out.println(m.find() + m.group());
+                for(int i = 1; i <= m.groupCount();i++){
+                    if(m.start(i)!=-1){
+                        System.out.println(i + " "+ mt.pat);
+//                        MatchType temp = matches;
+//                        matches = matches.next[i-1];
+                        parse(m,mt.next[i-1], parsed);
+                    }
+                }
+            }
+            private final static MatchType FAIL = new MatchType(null, null);
+            static class MatchType{
+                public MatchType(Pattern p, MatchType[] next){
+                    this.next = next;
+                    this.pat = p;
+                }
+                MatchType[] next;
+                Pattern pat;
             }
         }
         
-//        
+//       
 //        LinkedList<CharSequence> c = extract(cs, m);
 //        
 //        m = Pattern.compile("[^;]*;").matcher(cs);
@@ -79,5 +173,5 @@ public class RegTest {
 ////        System.out.println();
 //        
         
-    }
+//    }
 }
