@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 import mmg.util.strings.StringUtil;
 
 /**
+ * modifies a regular expression that has come from a mml script. Places it
+ * into one that is equivalent to the regular expressions used in java.
+ * 
  * @author zkieda
  */
 public class ModifyRegex {

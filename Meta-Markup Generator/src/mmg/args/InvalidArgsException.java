@@ -1,6 +1,7 @@
 package mmg.args;
 
 /**
+ * Thrown to indicate that there is an error in the args being parsed.
  * @author zkieda
  */
 public class InvalidArgsException extends IllegalArgumentException {

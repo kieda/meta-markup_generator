@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmg.compiler.parser.mml;
 
 import mmg.compiler.compilation.MMLObject;
@@ -14,7 +10,7 @@ import mmg.compiler.parser.exception.InvalidFunName;
 import mmg.compiler.parser.exception.MMLParsingException;
 
 /**
- *
+ * this class deals with the 
  * @author zkieda
  */
 public abstract class Fun{

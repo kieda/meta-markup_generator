@@ -3,6 +3,7 @@ package mmg.compiler.parser.exception;
 /**
  * represents an exception in parsing the java that is embedded in an 
  * mml script
+ * 
  * @author zkieda
  */
 public class JavaParsingException extends MMLParsingException {

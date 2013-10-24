@@ -14,8 +14,12 @@ import javax.tools.JavaFileObject;
 import javax.tools.ToolProvider;
 
 /**
- *
- * @author zkieda
+ * original class by Miron Sadziak from javablogging.com
+ * 
+ * modification by zkieda to fit needs
+ * 
+ * See : 
+ * http://www.javablogging.com/dynamic-in-memory-compilation/
  */
 public class InMemoryCompile {
     public static Object compile(String fullName, CharSequence src) throws ClassNotFoundException, InstantiationException, IllegalAccessException{
@@ -43,8 +47,8 @@ public class InMemoryCompile {
             // Creating an instance of our compiled class and
             // running its toString() method
             
-//            Object instance = 
-                    return fileManager.getClassLoader(null)
-                .loadClass(fullName).newInstance();
+                    return fileManager.getClassLoader(null)//todo - change this
+                .loadClass(fullName)
+                            .newInstance();
     }
 }

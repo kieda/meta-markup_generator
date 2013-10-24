@@ -5,6 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * contains a collection of methods that will be used to modify a block of 
+ * syntax (which is supposedly a block of java syntax in an mml file).
+ * 
  * @author zkieda
  */
 public class ModifyJava {

@@ -32,7 +32,7 @@ public class Main {
         File input;
         
         {
-        String path = InputArgs.parse(args);
+        String path = InputArgs.getInput(args);
         
         if(path==null) throw new InvalidArgsException("no input script.");
         else if((input = new File(path)).isFile())

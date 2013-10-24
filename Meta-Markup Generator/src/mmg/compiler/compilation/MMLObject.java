@@ -4,11 +4,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import mmg.compiler.parser.ModifyRegex;
-import mmg.util.strings.SharedChars;
-import mmg.util.strings.StringUtil;
 
 /**
+ * todo -- define mml object in terms of function calls, sequences of
+ * regexes, java syntax, etc. MMLObject will compile to a JavaGen
  * @author zkieda
  */
 public class MMLObject {

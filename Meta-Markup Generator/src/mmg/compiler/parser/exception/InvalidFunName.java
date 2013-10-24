@@ -1,8 +1,8 @@
 package mmg.compiler.parser.exception;
 
 /**
- * When an mml script attempts to use a function that does not exist or is
- * invalid.
+ * This is thrown when an mml script attempts to use a function that does not 
+ * exist or is invalid (contains invalid characters)
  * 
  * @author zkieda
  */

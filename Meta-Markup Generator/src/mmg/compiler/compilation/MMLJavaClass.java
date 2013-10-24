@@ -8,5 +8,6 @@ import mmg.gen.JavaSource;
  */
 public class MMLJavaClass extends JavaSource{
     public MMLJavaClass(MMLObject source){
+        //todo
     }
 }

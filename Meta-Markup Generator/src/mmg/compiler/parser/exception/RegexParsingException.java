@@ -2,6 +2,7 @@ package mmg.compiler.parser.exception;
 
 /**
  * an error while parsing a regular expression inside an mml script.
+ * 
  * @author zkieda
  */
 public class RegexParsingException extends MMLParsingException {

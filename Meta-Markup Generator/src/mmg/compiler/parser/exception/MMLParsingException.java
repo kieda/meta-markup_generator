@@ -2,6 +2,7 @@ package mmg.compiler.parser.exception;
 
 /**
  * represents an exception while parsing an mml file
+ * 
  * @author zkieda
  */
 public class MMLParsingException extends RuntimeException {

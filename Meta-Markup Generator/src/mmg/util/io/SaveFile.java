@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
+ * a basic class for saving a charsequence to a file.
  * @author zkieda
  */
 public class SaveFile {

@@ -15,5 +15,31 @@ package mmg;
  * @author zkieda
  */
 public interface CompilationCallback {
+    /**
+     * after the class has been instantiated, we pass it to the call method.
+     * 
+     * We know which constructor in the generated class we should use by the 
+     * paramTypes() method. 
+     * 
+     * We instantiate the constructor using the args() method. 
+     * 
+     * @param ret the instantiated object.
+     */
     void call(Object ret);
+    
+    /**
+     * this method provides the parameter types of the constructor we should 
+     * call when instantiating this class. After knowing which types the 
+     * constructor is, we instantiate the constructor using the args from 
+     * args().
+     * 
+     * we require args().length == paramTypes().length
+     */
+    Class<?>[] paramTypes();
+    
+    /**
+     * this method proved the arguments used for instantiating the constructor 
+     * of the generated java class.
+     */
+    Object[] args();
 }

@@ -24,6 +24,12 @@ public class FindDollar {
     
     /**
      * check yourself before you shrek yourself
+     * 
+     * i.e. finds "$" in a block of java syntax that is not in a comment and 
+     * not in a string or in a char. We throw an error if there is an error.
+     * 
+     * todo: generate certificate, allow client to handle error (which will
+     * allow us to have more advanced error output).
      */
     public static void check(CharSequence java){
         Matcher m = FIND_DOLLAS.matcher(java);

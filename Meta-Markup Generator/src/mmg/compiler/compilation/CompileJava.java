@@ -18,6 +18,8 @@ import mmg.lib.java_compile.InMemoryCompile;
  */
 public class CompileJava {
     private CompileJava(){}
+    
+    
     public static void compile(JavaGen jclass, CompileArgs args) {
         if(args.classname!=null) jclass.setClassName(args.classname);
         
@@ -45,10 +47,12 @@ public class CompileJava {
      * ensures: path exists
      */
     public static class CompileArgs implements Flags{
+        //should we compile in memory?
         public static final byte IN_MEMORY_COMPILE = 1;
+        //should we save the source?
         public static final byte SAVE_SOURCE = 2;
         
-        public final byte flags;
+        public final byte flags;//holds the boolean flags
         public final String classname;
         public final String path;
         
